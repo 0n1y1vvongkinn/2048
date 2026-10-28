@@ -1,23 +1,17 @@
 @import url(fonts/clear-sans.css);
 
-/* ---- 全屏亮粉色背景，彻底消除顶部米黄色 ---- */
+/* ---- 1. 温柔清爽的浅粉色全局背景 ---- */
 html, body {
-  margin: 0 !important;
-  padding: 0 !important;
-  background: #FFB6C1 !important; /* 甜美亮粉色 */
+  margin: 0;
+  padding: 0;
+  background: #FFF0F5 !important; /* 柔和的浅粉红，非常高级好看 */
   color: #776e65;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 18px;
 }
 
-.container {
-  width: 380px;
-  margin: 0 auto;
-  padding: 20px;
+body {
+  margin: 30px 0;
 }
 
 .heading:after {
@@ -27,33 +21,34 @@ html, body {
 }
 
 h1.title {
-  font-size: 55px;
+  font-size: 60px;
   font-weight: bold;
   margin: 0;
+  display: block;
   float: left;
-  color: #d14962;
+  color: #d87093; /* 优雅的粉紫色标题 */
 }
 
-/* ---- 中文分数框样式 ---- */
+/* ---- 2. 中文分数框样式 ---- */
 .scores-container {
   float: right;
+  text-align: right;
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .score-box, .best-box {
-  background: #ff758c;
-  padding: 6px 12px;
+  background: #ffb6c1;
+  padding: 10px 15px;
   border-radius: 6px;
   text-align: center;
   color: white;
-  min-width: 55px;
+  min-width: 60px;
 }
 
 .score-title, .best-title {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: #ffe6eb;
+  font-size: 12px;
+  color: #fff;
   margin-bottom: 2px;
 }
 
@@ -62,48 +57,30 @@ h1.title {
   font-weight: bold;
   height: 24px;
   line-height: 24px;
-}
-
-/* ---- 顶部副标题与新游戏按钮 ---- */
-.above-game {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.game-intro {
-  margin: 0;
-  font-size: 14px;
-  color: #9c3c4f;
-  font-weight: bold;
-}
-
-.restart-button {
-  background: #ff758c;
-  border-radius: 6px;
-  padding: 8px 16px;
-  text-decoration: none;
   color: white;
-  font-weight: bold;
-  font-size: 14px;
 }
 
-/* ---- 游戏大棋盘美化 ---- */
+.container {
+  width: 440px;
+  margin: 0 auto;
+}
+
+/* ---- 3. 游戏棋盘主体（恢复原版正常布局，不往下掉） ---- */
 .game-container {
+  margin-top: 25px;
   position: relative;
-  padding: 12px;
-  background: #ff5277 !important; /* 更有质感的粉红棋盘框 */
-  border-radius: 12px;
-  width: 380px;
-  height: 380px;
+  padding: 15px;
+  cursor: default;
+  background: #ff9ebb !important; /* 舒适的粉色棋盘外框 */
+  border-radius: 10px;
+  width: 440px;
+  height: 440px;
   box-sizing: border-box;
-  box-shadow: 0 8px 20px rgba(255, 82, 119, 0.3);
+  box-shadow: 0 6px 15px rgba(255, 158, 187, 0.4);
 }
 
 .grid-row {
-  margin-bottom: 12px;
+  margin-bottom: 15px;
 }
 .grid-row:last-child {
   margin-bottom: 0;
@@ -114,13 +91,14 @@ h1.title {
   clear: both;
 }
 
+/* 棋盘小格子大小 */
 .grid-cell {
-  width: 77px;
-  height: 77px;
-  margin-right: 12px;
+  width: 92.5px;
+  height: 92.5px;
+  margin-right: 15px;
   float: left;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.4) !important;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.5) !important;
 }
 .grid-cell:last-child {
   margin-right: 0;
@@ -132,37 +110,37 @@ h1.title {
 }
 
 .tile, .tile .tile-inner {
-  width: 77px;
-  height: 77px;
-  line-height: 77px;
+  width: 92.5px;
+  height: 92.5px;
+  line-height: 92.5px;
 }
 
-/* 4x4 棋盘精准坐标 */
+/* ---- 4x4 方块完美精准坐标 ---- */
 .tile.tile-position-1-1 { transform: translate(0px, 0px); }
-.tile.tile-position-1-2 { transform: translate(0px, 89px); }
-.tile.tile-position-1-3 { transform: translate(0px, 178px); }
-.tile.tile-position-1-4 { transform: translate(0px, 267px); }
+.tile.tile-position-1-2 { transform: translate(0px, 107.5px); }
+.tile.tile-position-1-3 { transform: translate(0px, 215px); }
+.tile.tile-position-1-4 { transform: translate(0px, 322.5px); }
 
-.tile.tile-position-2-1 { transform: translate(89px, 0px); }
-.tile.tile-position-2-2 { transform: translate(89px, 89px); }
-.tile.tile-position-2-3 { transform: translate(89px, 178px); }
-.tile.tile-position-2-4 { transform: translate(89px, 267px); }
+.tile.tile-position-2-1 { transform: translate(107.5px, 0px); }
+.tile.tile-position-2-2 { transform: translate(107.5px, 107.5px); }
+.tile.tile-position-2-3 { transform: translate(107.5px, 215px); }
+.tile.tile-position-2-4 { transform: translate(107.5px, 322.5px); }
 
-.tile.tile-position-3-1 { transform: translate(178px, 0px); }
-.tile.tile-position-3-2 { transform: translate(178px, 89px); }
-.tile.tile-position-3-3 { transform: translate(178px, 178px); }
-.tile.tile-position-3-4 { transform: translate(178px, 267px); }
+.tile.tile-position-3-1 { transform: translate(215px, 0px); }
+.tile.tile-position-3-2 { transform: translate(215px, 107.5px); }
+.tile.tile-position-3-3 { transform: translate(215px, 215px); }
+.tile.tile-position-3-4 { transform: translate(215px, 322.5px); }
 
-.tile.tile-position-4-1 { transform: translate(267px, 0px); }
-.tile.tile-position-4-2 { transform: translate(267px, 89px); }
-.tile.tile-position-4-3 { transform: translate(267px, 178px); }
-.tile.tile-position-4-4 { transform: translate(267px, 267px); }
+.tile.tile-position-4-1 { transform: translate(322.5px, 0px); }
+.tile.tile-position-4-2 { transform: translate(322.5px, 107.5px); }
+.tile.tile-position-4-3 { transform: translate(322.5px, 215px); }
+.tile.tile-position-4-4 { transform: translate(322.5px, 322.5px); }
 
-/* ---- 消除闪烁并加载 11 张自定义图片 ---- */
+/* ---- 4. 彻底消除闪烁并加载 11 张自定义图片 ---- */
 .tile .tile-inner {
   background-color: transparent !important;
   color: transparent !important;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .tile.tile-2 .tile-inner { background-image: url("2.jpg"); background-size: cover; background-position: center; }
@@ -176,3 +154,66 @@ h1.title {
 .tile.tile-512 .tile-inner { background-image: url("512.jpg"); background-size: cover; background-position: center; }
 .tile.tile-1024 .tile-inner { background-image: url("1024.jpg"); background-size: cover; background-position: center; }
 .tile.tile-2048 .tile-inner { background-image: url("2048.jpg"); background-size: cover; background-position: center; }
+
+/* ---- 顶部副标题与新游戏按钮 ---- */
+.above-game {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.game-intro {
+  float: left;
+  line-height: 40px;
+  margin: 0;
+  font-size: 15px;
+  color: #c71585;
+  font-weight: bold;
+}
+
+.restart-button {
+  display: inline-block;
+  background: #ffb6c1;
+  border-radius: 6px;
+  padding: 0 20px;
+  text-decoration: none;
+  color: white;
+  height: 40px;
+  line-height: 42px;
+  float: right;
+  font-weight: bold;
+}
+
+/* 手机端自适应 */
+@media screen and (max-width: 520px) {
+  .container, .above-game {
+    width: 300px;
+  }
+  .game-container {
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+  }
+  .grid-cell, .tile, .tile .tile-inner {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+  }
+  .grid-row {
+    margin-bottom: 10px;
+  }
+  .tile.tile-position-1-2 { transform: translate(0px, 70px); }
+  .tile.tile-position-1-3 { transform: translate(0px, 140px); }
+  .tile.tile-position-1-4 { transform: translate(0px, 210px); }
+  .tile.tile-position-2-1 { transform: translate(70px, 0px); }
+  .tile.tile-position-2-2 { transform: translate(70px, 70px); }
+  .tile.tile-position-2-3 { transform: translate(70px, 140px); }
+  .tile.tile-position-2-4 { transform: translate(70px, 210px); }
+  .tile.tile-position-3-1 { transform: translate(140px, 0px); }
+  .tile.tile-position-3-2 { transform: translate(140px, 70px); }
+  .tile.tile-position-3-3 { transform: translate(140px, 140px); }
+  .tile.tile-position-3-4 { transform: translate(140px, 210px); }
+  .tile.tile-position-4-1 { transform: translate(210px, 0px); }
+  .tile.tile-position-4-2 { transform: translate(210px, 70px); }
+  .tile.tile-position-4-3 { transform: translate(210px, 140px); }
+  .tile.tile-position-4-4 { transform: translate(210px, 210px); }
+}
