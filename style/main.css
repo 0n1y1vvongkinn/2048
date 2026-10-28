@@ -1,10 +1,10 @@
 @import url(fonts/clear-sans.css);
 
-/* ---- 1. 温柔清爽的浅粉色全局背景 ---- */
+/* ---- 1. 全局背景与基础样式 ---- */
 html, body {
   margin: 0;
   padding: 0;
-  background: #FFF0F5 !important; /* 柔和的浅粉红 */
+  background: #FFF0F5 !important;
   color: #776e65;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
@@ -12,9 +12,16 @@ html, body {
 
 body {
   margin: 30px 0;
+  display: flex;
+  justify-content: center;
 }
 
-/* ---- 2. 修复头部排版 (抛弃 float，拥抱 flex) ---- */
+.container {
+  width: 440px;
+  margin: 0 auto;
+}
+
+/* ---- 2. 头部标题与分数 ---- */
 .heading {
   display: flex;
   justify-content: space-between;
@@ -26,7 +33,7 @@ h1.title {
   font-size: 60px;
   font-weight: bold;
   margin: 0;
-  color: #d87093; /* 优雅的粉紫色标题 */
+  color: #d87093;
   line-height: 1;
 }
 
@@ -57,27 +64,51 @@ h1.title {
   color: white;
 }
 
-.container {
-  width: 440px;
-  margin: 0 auto;
+/* ---- 3. 游戏提示与新游戏按钮 ---- */
+.above-game {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-/* ---- 3. 游戏棋盘主体 ---- */
+.game-intro {
+  margin: 0;
+  font-size: 15px;
+  color: #c71585;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.restart-button {
+  display: inline-block;
+  background: #ffb6c1;
+  border-radius: 6px;
+  padding: 0 20px;
+  text-decoration: none;
+  color: white;
+  height: 40px;
+  line-height: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ---- 4. 棋盘主体 ---- */
 .game-container {
   position: relative;
   padding: 15px;
   cursor: default;
-  background: #ff9ebb !important; /* 舒适的粉色棋盘外框 */
+  background: #ff9ebb !important;
   border-radius: 10px;
   width: 440px;
   height: 440px;
   box-sizing: border-box;
   box-shadow: 0 6px 15px rgba(255, 158, 187, 0.4);
-  overflow: hidden; /* 防止方块飞到屏幕外 */
-  touch-action: none; /* 防止手机端滑动时页面跟着滚动 */
+  overflow: hidden;
+  touch-action: none;
 }
 
-/* 背景网格 */
 .grid-container {
   position: absolute;
   z-index: 1;
@@ -109,21 +140,21 @@ h1.title {
   margin-right: 0;
 }
 
-/* ---- 4. 方块容器与基础属性 (修复乱飞的关键) ---- */
+/* ---- 5. 方块容器与方块本体 ---- */
 .tile-container {
   position: absolute;
   z-index: 2;
-  top: 15px;   /* 必须加，对应 padding */
-  left: 15px;  /* 必须加，对应 padding */
+  top: 15px;
+  left: 15px;
 }
 
 .tile {
-  position: absolute; /* 必须加，脱离文档流 */
+  position: absolute;
   top: 0;
   left: 0;
   width: 92.5px;
   height: 92.5px;
-  transition: transform 100ms ease-in-out; /* 加上原版动画 */
+  transition: transform 100ms ease-in-out;
 }
 
 .tile .tile-inner {
@@ -133,12 +164,11 @@ h1.title {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* 消除文字 */
   color: transparent !important;
   background-color: transparent !important;
 }
 
-/* ---- 5. 4x4 方块完美精准坐标 ---- */
+/* 4x4 方块坐标 */
 .tile.tile-position-1-1 { transform: translate(0px, 0px); }
 .tile.tile-position-1-2 { transform: translate(0px, 107.5px); }
 .tile.tile-position-1-3 { transform: translate(0px, 215px); }
@@ -159,36 +189,54 @@ h1.title {
 .tile.tile-position-4-3 { transform: translate(322.5px, 215px); }
 .tile.tile-position-4-4 { transform: translate(322.5px, 322.5px); }
 
-/* ---- 6. 加载 11 张自定义图片 ---- */
-.tile.tile-2 .tile-inner { background-image: url("2.jpg"); }
-.tile.tile-4 .tile-inner { background-image: url("4.jpg"); }
-.tile.tile-8 .tile-inner { background-image: url("8.jpg"); }
-.tile.tile-16 .tile-inner { background-image: url("16.jpg"); }
-.tile.tile-32 .tile-inner { background-image: url("32.jpg"); }
-.tile.tile-64 .tile-inner { background-image: url("64.jpg"); }
-.tile.tile-128 .tile-inner { background-image: url("128.jpg"); }
-.tile.tile-256 .tile-inner { background-image: url("256.jpg"); }
-.tile.tile-512 .tile-inner { background-image: url("512.jpg"); }
-.tile.tile-1024 .tile-inner { background-image: url("1024.jpg"); }
-.tile.tile-2048 .tile-inner { background-image: url("2048.jpg"); }
+/* ---- 6. 图片资源加载 ---- */
+/* 注意：如果你的图片和 main.css 在同一个 style 文件夹里，请把下面的 ../ 删掉 */
+.tile.tile-2 .tile-inner { background-image: url("../2.jpg"); }
+.tile.tile-4 .tile-inner { background-image: url("../4.jpg"); }
+.tile.tile-8 .tile-inner { background-image: url("../8.jpg"); }
+.tile.tile-16 .tile-inner { background-image: url("../16.jpg"); }
+.tile.tile-32 .tile-inner { background-image: url("../32.jpg"); }
+.tile.tile-64 .tile-inner { background-image: url("../64.jpg"); }
+.tile.tile-128 .tile-inner { background-image: url("../128.jpg"); }
+.tile.tile-256 .tile-inner { background-image: url("../256.jpg"); }
+.tile.tile-512 .tile-inner { background-image: url("../512.jpg"); }
+.tile.tile-1024 .tile-inner { background-image: url("../1024.jpg"); }
+.tile.tile-2048 .tile-inner { background-image: url("../2048.jpg"); }
 
-/* ---- 7. 顶部副标题与新游戏按钮 (Flex 布局修复散架) ---- */
-.above-game {
-  display: flex;
-  justify-content: space-between;
+/* ---- 7. 游戏结束/胜利弹窗 ---- */
+.game-message {
+  display: none; /* 默认隐藏，解决你截图中左下角的文字问题 */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 240, 245, 0.9);
+  z-index: 100;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
+  border-radius: 10px;
 }
 
-.game-intro {
-  margin: 0;
-  font-size: 15px;
-  color: #c71585;
+.game-message p {
+  font-size: 50px;
   font-weight: bold;
+  color: #d87093;
+  margin: 0;
   line-height: 1.2;
 }
 
-.restart-button {
+.game-message.game-won p {
+  color: #ff69b4;
+}
+
+.game-message .lower {
+  margin-top: 20px;
+}
+
+.game-message a {
   display: inline-block;
   background: #ffb6c1;
   border-radius: 6px;
@@ -196,52 +244,29 @@ h1.title {
   text-decoration: none;
   color: white;
   height: 40px;
-  line-height: 40px; /* 修复原版文字偏下的问题 */
+  line-height: 40px;
   font-weight: bold;
-  border: none;
+  margin: 0 5px;
   cursor: pointer;
-  flex-shrink: 0; /* 防止按钮被挤压 */
 }
 
-/* ---- 8. 手机端自适应修复 ---- */
+/* 只有游戏结束或胜利时，才显示弹窗 */
+.game-message.game-over, .game-message.game-won {
+  display: flex; 
+}
+
+/* ---- 8. 手机端自适应 ---- */
 @media screen and (max-width: 520px) {
-  body {
-    margin: 15px 0;
-  }
-  .container {
-    width: 300px;
-    margin: 0 auto;
-  }
+  body { margin: 15px 0; }
+  .container { width: 300px; }
   
-  h1.title {
-    font-size: 40px;
-  }
-  
-  .score-box, .best-box {
-    padding: 5px 10px;
-    min-width: 50px;
-  }
-  
-  .score-container, .best-container {
-    font-size: 16px;
-  }
+  h1.title { font-size: 40px; }
+  .score-box, .best-box { padding: 5px 10px; min-width: 50px; }
+  .score-container, .best-container { font-size: 16px; }
 
-  .above-game {
-    width: 300px;
-    margin: 10px auto;
-  }
-
-  .game-intro {
-    font-size: 13px;
-    width: 150px;
-  }
-
-  .restart-button {
-    padding: 0 15px;
-    height: 35px;
-    line-height: 35px;
-    font-size: 14px;
-  }
+  .above-game { width: 300px; margin: 10px auto; }
+  .game-intro { font-size: 13px; width: 150px; }
+  .restart-button { padding: 0 15px; height: 35px; line-height: 35px; font-size: 14px; }
 
   .game-container {
     width: 300px;
@@ -250,30 +275,13 @@ h1.title {
     margin: 0 auto;
   }
 
-  .grid-container {
-    top: 10px;
-    left: 10px;
-  }
+  .grid-container, .tile-container { top: 10px; left: 10px; }
 
-  .tile-container {
-    top: 10px;
-    left: 10px;
-  }
+  .grid-cell, .tile, .tile .tile-inner { width: 60px; height: 60px; }
+  .grid-cell { margin-right: 10px; }
+  .grid-row { margin-bottom: 10px; }
 
-  .grid-cell, .tile, .tile .tile-inner {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .grid-cell {
-    margin-right: 10px; /* 修复：原来是15px，手机端应该是 300 - 20(padding) - 30(3个margin) = 250 / 4 = 62.5，这里用10px margin让格子刚好放下 */
-  }
-  
-  .grid-row {
-    margin-bottom: 10px;
-  }
-
-  /* 手机端 4x4 坐标 */
+  /* 手机端方块坐标 */
   .tile.tile-position-1-1 { transform: translate(0px, 0px); }
   .tile.tile-position-1-2 { transform: translate(0px, 70px); }
   .tile.tile-position-1-3 { transform: translate(0px, 140px); }
@@ -293,4 +301,7 @@ h1.title {
   .tile.tile-position-4-2 { transform: translate(210px, 70px); }
   .tile.tile-position-4-3 { transform: translate(210px, 140px); }
   .tile.tile-position-4-4 { transform: translate(210px, 210px); }
-}
+  
+  .game-message p { font-size: 36px; }
+  .game-message a { height: 35px; line-height: 35px; padding: 0 15px; font-size: 14px; }
+  }
