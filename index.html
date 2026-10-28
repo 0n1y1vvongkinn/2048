@@ -1,6 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>2048 - 专属定制版</title>
+
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
 <body>
   <div class="container">
-    <!-- 头部 -->
+    <!-- 头部：标题与分数 -->
     <div class="heading">
       <h1 class="title">2048</h1>
       <div class="scores-container">
@@ -15,7 +31,7 @@
       </div>
     </div>
 
-    <!-- 按钮栏 -->
+    <!-- 提示语与新游戏按钮 -->
     <div class="above-game">
       <p class="game-intro">合并相同图片，解锁最终大图！</p>
       <a class="restart-button">新游戏</a>
@@ -24,11 +40,11 @@
     <!-- 游戏主体 -->
     <div class="game-container">
       
-      <!-- 游戏结束/胜利弹窗 -->
+      <!-- 游戏结束/胜利弹窗 (默认隐藏) -->
       <div class="game-message">
         <p></p>
         <div class="lower">
-          <a class="keep-playing-button">继续游戏</a>
+	        <a class="keep-playing-button">继续游戏</a>
           <a class="retry-button">再试一次</a>
         </div>
       </div>
@@ -49,14 +65,12 @@
         </div>
       </div>
 
-      <!-- 动态方块容器 (由 JS 生成内容) -->
-      <div class="tile-container">
-      </div>
-      
+      <!-- 动态方块容器 -->
+      <div class="tile-container"></div>
     </div>
   </div>
 
-  <!-- 你的 JS 脚本 -->
+  <!-- 核心游戏 JS -->
   <script src="js/bind_polyfill.js"></script>
   <script src="js/classlist_polyfill.js"></script>
   <script src="js/animframe_polyfill.js"></script>
@@ -68,24 +82,54 @@
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
 
-  <!-- 音效脚本 -->
+  <!-- 升级版音效脚本 (完美支持电脑键盘和手机滑动) -->
   <script>
+    let audioCtx = null;
+    // 浏览器要求必须在用户交互后才能播放声音，这里做个初始化唤醒
+    const initAudio = () => {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    };
+
     const playSound = (freq, type) => {
+      initAudio();
+      if (!audioCtx) return;
       try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
         osc.type = type || 'sine';
         osc.frequency.value = freq;
-        gain.gain.setValueAtTime(0.1, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+        // 音量与持续时间
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
         osc.connect(gain);
-        gain.connect(ctx.destination);
+        gain.connect(audioCtx.destination);
         osc.start();
-        osc.stop(ctx.currentTime + 0.1);
+        osc.stop(audioCtx.currentTime + 0.1);
       } catch(e) {}
     };
-    document.addEventListener('keydown', () => playSound(400, 'sine'));
-    document.addEventListener('touchstart', () => playSound(400, 'sine'));
+
+    // 绑定到棋盘容器上，捕捉键盘和触摸
+    const gameContainer = document.querySelector('.game-container');
+    
+    if (gameContainer) {
+      // 电脑端按键
+      gameContainer.addEventListener('keydown', (e) => {
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(e.key.toLowerCase())) {
+          playSound(400, 'sine');
+        }
+      });
+
+      // 手机端滑动、点击
+      gameContainer.addEventListener('touchstart', () => {
+        initAudio(); 
+        playSound(400, 'sine');
+      });
+    }
   </script>
 </body>
+</html>
