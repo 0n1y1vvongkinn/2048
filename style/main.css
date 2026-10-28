@@ -754,5 +754,18 @@ hr {
     height: 30px !important;
     line-height: 30px !important;
     margin-top: 90px !important; }
+  /* 自定义 2048 皮肤图片代码 */
+.tile.tile-2 .tile-inner { background-image: url("2.jpg"); background-size: cover; background-position: center; color: transparent; }
+.tile.tile-4 .tile-inner { background-image: url("4.jpg"); background-size: cover; background-position: center; color: transparent; }
+.tile.tile-8 .tile-inner { background-image: url("8.jpg"); background-size: cover; background-position: center; color: transparent; }
+.tile.tile-16 .tile-inner { background-image: url("16.jpg"); background-size: cover; background-position: center; color: transparent; }
+.tile.tile-32 .tile-inner { background-image: url("32.jpg"); background-size: cover; background-position: center; color: transparent; }
+.tile.tile-64 .tile-inner { background-image: url("64.jpg"); background-size: cover; background-position: center; color: transparent; }
+.tile.tile-128 .tile-inner { background-image: url("128.jpg"); background-size: cover; background-position: center; color: transparent; }
+.tile.tile-256 .tile-inner { background-image: url("256.jpg"); background-size: cover; background-position: center; color: transparent; }
+.tile.tile-512 .tile-inner { background-image: url("512.jpg"); background-size: cover; background-position: center; color: transparent; }
+.tile.tile-1024 .tile-inner { background-image: url("1024.jpg"); background-size: cover; background-position: center; color: transparent; }
+.tile.tile-2048 .tile-inner { background-image: url("2048.jpg"); background-size: cover; background-position: center; color: transparent; }
+
   .game-message .lower {
     margin-top: 30px !important; } }
