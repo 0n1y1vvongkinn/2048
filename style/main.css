@@ -1,6 +1,6 @@
 @import url(fonts/clear-sans.css);
 
-/* ---- 1. 全局背景与基础样式 ---- */
+/* ---- 1. 全局基础 ---- */
 html, body {
   margin: 0;
   padding: 0;
@@ -8,20 +8,21 @@ html, body {
   color: #776e65;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
+  touch-action: none; /* 防止手机端滑动页面 */
 }
 
 body {
-  margin: 30px 0;
+  margin: 20px 0;
   display: flex;
   justify-content: center;
 }
 
 .container {
-  width: 440px;
+  width: 400px; /* 电脑端基础尺寸 */
   margin: 0 auto;
 }
 
-/* ---- 2. 头部标题与分数 ---- */
+/* ---- 2. 头部排版 ---- */
 .heading {
   display: flex;
   justify-content: space-between;
@@ -30,7 +31,7 @@ body {
 }
 
 h1.title {
-  font-size: 60px;
+  font-size: 56px;
   font-weight: bold;
   margin: 0;
   color: #d87093;
@@ -40,15 +41,17 @@ h1.title {
 .scores-container {
   display: flex;
   gap: 10px;
+  position: relative; /* 限制内部元素乱跑 */
 }
 
 .score-box, .best-box {
   background: #ffb6c1;
-  padding: 8px 15px;
+  padding: 8px 12px;
   border-radius: 6px;
   text-align: center;
   color: white;
-  min-width: 60px;
+  min-width: 65px;
+  position: relative;
 }
 
 .score-title, .best-title {
@@ -64,7 +67,12 @@ h1.title {
   color: white;
 }
 
-/* ---- 3. 游戏提示与新游戏按钮 ---- */
+/* 隐藏原版得分时的 +4 飘字动画，太丑了 */
+.score-addition {
+  display: none !important;
+}
+
+/* ---- 3. 按钮与提示 ---- */
 .above-game {
   display: flex;
   justify-content: space-between;
@@ -74,44 +82,41 @@ h1.title {
 
 .game-intro {
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
   color: #c71585;
   font-weight: bold;
-  line-height: 1.2;
 }
 
 .restart-button {
   display: inline-block;
   background: #ffb6c1;
   border-radius: 6px;
-  padding: 0 20px;
+  padding: 0 15px;
   text-decoration: none;
   color: white;
-  height: 40px;
-  line-height: 40px;
+  height: 36px;
+  line-height: 36px;
   font-weight: bold;
+  font-size: 15px;
   cursor: pointer;
-  flex-shrink: 0;
 }
 
 /* ---- 4. 棋盘主体 ---- */
 .game-container {
   position: relative;
   padding: 15px;
-  cursor: default;
   background: #ff9ebb !important;
   border-radius: 10px;
-  width: 440px;
-  height: 440px;
+  width: 400px;
+  height: 400px;
   box-sizing: border-box;
   box-shadow: 0 6px 15px rgba(255, 158, 187, 0.4);
   overflow: hidden;
-  touch-action: none;
 }
 
-.grid-container {
+.grid-container, .tile-container {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 15px;
   left: 15px;
 }
@@ -128,32 +133,26 @@ h1.title {
   clear: both;
 }
 
+/* 电脑端格子 83.75px */
 .grid-cell {
-  width: 92.5px;
-  height: 92.5px;
+  width: 83.75px;
+  height: 83.75px;
   margin-right: 15px;
   float: left;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.5) !important;
+  background: rgba(255, 255, 255, 0.4) !important;
 }
 .grid-cell:last-child {
   margin-right: 0;
 }
 
-/* ---- 5. 方块容器与方块本体 ---- */
-.tile-container {
-  position: absolute;
-  z-index: 2;
-  top: 15px;
-  left: 15px;
-}
-
+/* 方块本体 */
 .tile {
   position: absolute;
   top: 0;
   left: 0;
-  width: 92.5px;
-  height: 92.5px;
+  width: 83.75px;
+  height: 83.75px;
   transition: transform 100ms ease-in-out;
 }
 
@@ -168,29 +167,28 @@ h1.title {
   background-color: transparent !important;
 }
 
-/* 4x4 方块坐标 */
+/* 电脑端坐标 (83.75 + 15 = 98.75) */
 .tile.tile-position-1-1 { transform: translate(0px, 0px); }
-.tile.tile-position-1-2 { transform: translate(0px, 107.5px); }
-.tile.tile-position-1-3 { transform: translate(0px, 215px); }
-.tile.tile-position-1-4 { transform: translate(0px, 322.5px); }
+.tile.tile-position-1-2 { transform: translate(0px, 98.75px); }
+.tile.tile-position-1-3 { transform: translate(0px, 197.5px); }
+.tile.tile-position-1-4 { transform: translate(0px, 296.25px); }
 
-.tile.tile-position-2-1 { transform: translate(107.5px, 0px); }
-.tile.tile-position-2-2 { transform: translate(107.5px, 107.5px); }
-.tile.tile-position-2-3 { transform: translate(107.5px, 215px); }
-.tile.tile-position-2-4 { transform: translate(107.5px, 322.5px); }
+.tile.tile-position-2-1 { transform: translate(98.75px, 0px); }
+.tile.tile-position-2-2 { transform: translate(98.75px, 98.75px); }
+.tile.tile-position-2-3 { transform: translate(98.75px, 197.5px); }
+.tile.tile-position-2-4 { transform: translate(98.75px, 296.25px); }
 
-.tile.tile-position-3-1 { transform: translate(215px, 0px); }
-.tile.tile-position-3-2 { transform: translate(215px, 107.5px); }
-.tile.tile-position-3-3 { transform: translate(215px, 215px); }
-.tile.tile-position-3-4 { transform: translate(215px, 322.5px); }
+.tile.tile-position-3-1 { transform: translate(197.5px, 0px); }
+.tile.tile-position-3-2 { transform: translate(197.5px, 98.75px); }
+.tile.tile-position-3-3 { transform: translate(197.5px, 197.5px); }
+.tile.tile-position-3-4 { transform: translate(197.5px, 296.25px); }
 
-.tile.tile-position-4-1 { transform: translate(322.5px, 0px); }
-.tile.tile-position-4-2 { transform: translate(322.5px, 107.5px); }
-.tile.tile-position-4-3 { transform: translate(322.5px, 215px); }
-.tile.tile-position-4-4 { transform: translate(322.5px, 322.5px); }
+.tile.tile-position-4-1 { transform: translate(296.25px, 0px); }
+.tile.tile-position-4-2 { transform: translate(296.25px, 98.75px); }
+.tile.tile-position-4-3 { transform: translate(296.25px, 197.5px); }
+.tile.tile-position-4-4 { transform: translate(296.25px, 296.25px); }
 
-/* ---- 6. 图片资源加载 ---- */
-/* 注意：如果你的图片和 main.css 在同一个 style 文件夹里，请把下面的 ../ 删掉 */
+/* ---- 5. 图片加载 ---- */
 .tile.tile-2 .tile-inner { background-image: url("../2.jpg"); }
 .tile.tile-4 .tile-inner { background-image: url("../4.jpg"); }
 .tile.tile-8 .tile-inner { background-image: url("../8.jpg"); }
@@ -203,9 +201,9 @@ h1.title {
 .tile.tile-1024 .tile-inner { background-image: url("../1024.jpg"); }
 .tile.tile-2048 .tile-inner { background-image: url("../2048.jpg"); }
 
-/* ---- 7. 游戏结束/胜利弹窗 ---- */
+/* ---- 6. 彻底隐藏弹窗（直到游戏结束） ---- */
 .game-message {
-  display: none; /* 默认隐藏，解决你截图中左下角的文字问题 */
+  display: none; /* 这句是杀招，绝对不会露出来 */
   position: absolute;
   top: 0;
   right: 0;
@@ -221,15 +219,10 @@ h1.title {
 }
 
 .game-message p {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: bold;
   color: #d87093;
   margin: 0;
-  line-height: 1.2;
-}
-
-.game-message.game-won p {
-  color: #ff69b4;
 }
 
 .game-message .lower {
@@ -250,58 +243,52 @@ h1.title {
   cursor: pointer;
 }
 
-/* 只有游戏结束或胜利时，才显示弹窗 */
 .game-message.game-over, .game-message.game-won {
   display: flex; 
 }
 
-/* ---- 8. 手机端自适应 ---- */
+/* ---- 7. 手机端放大适配 (重点调整) ---- */
 @media screen and (max-width: 520px) {
-  body { margin: 15px 0; }
-  .container { width: 300px; }
+  body { margin: 10px 0; }
   
-  h1.title { font-size: 40px; }
-  .score-box, .best-box { padding: 5px 10px; min-width: 50px; }
-  .score-container, .best-container { font-size: 16px; }
-
-  .above-game { width: 300px; margin: 10px auto; }
-  .game-intro { font-size: 13px; width: 150px; }
-  .restart-button { padding: 0 15px; height: 35px; line-height: 35px; font-size: 14px; }
+  /* 手机端宽度拉满到 350px，不浪费你的大屏幕 */
+  .container, .above-game { width: 350px; }
+  
+  h1.title { font-size: 45px; }
+  .score-box, .best-box { padding: 6px 10px; min-width: 55px; }
+  .score-container, .best-container { font-size: 18px; }
 
   .game-container {
-    width: 300px;
-    height: 300px;
-    padding: 10px;
-    margin: 0 auto;
+    width: 350px;
+    height: 350px;
+    padding: 12px; /* 边距稍微缩小，让格子变大 */
   }
 
-  .grid-container, .tile-container { top: 10px; left: 10px; }
+  .grid-container, .tile-container { top: 12px; left: 12px; }
 
-  .grid-cell, .tile, .tile .tile-inner { width: 60px; height: 60px; }
-  .grid-cell { margin-right: 10px; }
+  /* 手机端格子计算: (350 - 24) / 4 - 10(间隔) = 71.5px */
+  .grid-cell, .tile, .tile .tile-inner { width: 71.5px; height: 71.5px; }
+  .grid-cell { margin-right: 10px; border-radius: 4px; }
   .grid-row { margin-bottom: 10px; }
 
-  /* 手机端方块坐标 */
+  /* 手机端坐标 (71.5 + 10 = 81.5) */
   .tile.tile-position-1-1 { transform: translate(0px, 0px); }
-  .tile.tile-position-1-2 { transform: translate(0px, 70px); }
-  .tile.tile-position-1-3 { transform: translate(0px, 140px); }
-  .tile.tile-position-1-4 { transform: translate(0px, 210px); }
+  .tile.tile-position-1-2 { transform: translate(0px, 81.5px); }
+  .tile.tile-position-1-3 { transform: translate(0px, 163px); }
+  .tile.tile-position-1-4 { transform: translate(0px, 244.5px); }
 
-  .tile.tile-position-2-1 { transform: translate(70px, 0px); }
-  .tile.tile-position-2-2 { transform: translate(70px, 70px); }
-  .tile.tile-position-2-3 { transform: translate(70px, 140px); }
-  .tile.tile-position-2-4 { transform: translate(70px, 210px); }
+  .tile.tile-position-2-1 { transform: translate(81.5px, 0px); }
+  .tile.tile-position-2-2 { transform: translate(81.5px, 81.5px); }
+  .tile.tile-position-2-3 { transform: translate(81.5px, 163px); }
+  .tile.tile-position-2-4 { transform: translate(81.5px, 244.5px); }
 
-  .tile.tile-position-3-1 { transform: translate(140px, 0px); }
-  .tile.tile-position-3-2 { transform: translate(140px, 70px); }
-  .tile.tile-position-3-3 { transform: translate(140px, 140px); }
-  .tile.tile-position-3-4 { transform: translate(140px, 210px); }
+  .tile.tile-position-3-1 { transform: translate(163px, 0px); }
+  .tile.tile-position-3-2 { transform: translate(163px, 81.5px); }
+  .tile.tile-position-3-3 { transform: translate(163px, 163px); }
+  .tile.tile-position-3-4 { transform: translate(163px, 244.5px); }
 
-  .tile.tile-position-4-1 { transform: translate(210px, 0px); }
-  .tile.tile-position-4-2 { transform: translate(210px, 70px); }
-  .tile.tile-position-4-3 { transform: translate(210px, 140px); }
-  .tile.tile-position-4-4 { transform: translate(210px, 210px); }
-  
-  .game-message p { font-size: 36px; }
-  .game-message a { height: 35px; line-height: 35px; padding: 0 15px; font-size: 14px; }
-  }
+  .tile.tile-position-4-1 { transform: translate(244.5px, 0px); }
+  .tile.tile-position-4-2 { transform: translate(244.5px, 81.5px); }
+  .tile.tile-position-4-3 { transform: translate(244.5px, 163px); }
+  .tile.tile-position-4-4 { transform: translate(244.5px, 244.5px); }
+}
