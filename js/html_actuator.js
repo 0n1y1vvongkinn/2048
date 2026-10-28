@@ -1,20 +1,3 @@
-// ========== 【接单配置区，只在这里改！！】 ==========
-// 顺序：2,4,8,16,32,64,128,256,512,1024,2048
-const tileImages = [
-  "https://xxx/2.png",
-  "https://xxx/4.png",
-  "https://xxx/8.png",
-  "https://xxx/16.png",
-  "https://xxx/32.png",
-  "https://xxx/64.png",
-  "https://xxx/128.png",
-  "https://xxx/256.png",
-  "https://xxx/512.png",
-  "https://xxx/1024.png",
-  "https://xxx/2048.png"
-];
-// =====================================================
-
 function HTMLActuator() {
   this.tileContainer    = document.querySelector(".tile-container");
   this.scoreContainer   = document.querySelector(".score-container");
@@ -79,27 +62,7 @@ HTMLActuator.prototype.addTile = function (tile) {
   this.applyClasses(wrapper, classes);
 
   inner.classList.add("tile-inner");
-  // ========= 这里改掉：不再写数字，换成图片 =========
-  const valueIndexMap = {
-    2:0,
-    4:1,
-    8:2,
-    16:3,
-    32:4,
-    64:5,
-    128:6,
-    256:7,
-    512:8,
-    1024:9,
-    2048:10
-  };
-  const idx = valueIndexMap[tile.value];
-  if (idx !== undefined && tileImages[idx]) {
-    inner.innerHTML = `<img src="${tileImages[idx]}" style="width:100%;height:100%;object-fit:cover;">`;
-  } else {
-    inner.textContent = tile.value;
-  }
-  // ==================================================
+  inner.textContent = tile.value;
 
   if (tile.previousPosition) {
     // Make sure that the tile gets rendered in the previous position first
