@@ -184,18 +184,18 @@ h1.title {
 .tile.tile-position-4-3 { transform: translate(296.25px, 197.5px); }
 .tile.tile-position-4-4 { transform: translate(296.25px, 296.25px); }
 
-/* ---- 5. 图片加载（你的图在同一个文件夹，所以没有 ../） ---- */
-.tile.tile-2 .tile-inner { background-image: url("2.jpg"); }
-.tile.tile-4 .tile-inner { background-image: url("4.jpg"); }
-.tile.tile-8 .tile-inner { background-image: url("8.jpg"); }
-.tile.tile-16 .tile-inner { background-image: url("16.jpg"); }
-.tile.tile-32 .tile-inner { background-image: url("32.jpg"); }
-.tile.tile-64 .tile-inner { background-image: url("64.jpg"); }
-.tile.tile-128 .tile-inner { background-image: url("128.jpg"); }
-.tile.tile-256 .tile-inner { background-image: url("256.jpg"); }
-.tile.tile-512 .tile-inner { background-image: url("512.jpg"); }
-.tile.tile-1024 .tile-inner { background-image: url("1024.jpg"); }
-.tile.tile-2048 .tile-inner { background-image: url("2048.jpg"); }
+/* ---- 5. 图片加载 ---- */
+.tile.tile-2 .tile-inner { background-image: url("../2.jpg"); }
+.tile.tile-4 .tile-inner { background-image: url("../4.jpg"); }
+.tile.tile-8 .tile-inner { background-image: url("../8.jpg"); }
+.tile.tile-16 .tile-inner { background-image: url("../16.jpg"); }
+.tile.tile-32 .tile-inner { background-image: url("../32.jpg"); }
+.tile.tile-64 .tile-inner { background-image: url("../64.jpg"); }
+.tile.tile-128 .tile-inner { background-image: url("../128.jpg"); }
+.tile.tile-256 .tile-inner { background-image: url("../256.jpg"); }
+.tile.tile-512 .tile-inner { background-image: url("../512.jpg"); }
+.tile.tile-1024 .tile-inner { background-image: url("../1024.jpg"); }
+.tile.tile-2048 .tile-inner { background-image: url("../2048.jpg"); }
 
 /* ---- 6. 手机端放大到 380px ---- */
 @media screen and (max-width: 520px) {
