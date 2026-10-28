@@ -1,22 +1,23 @@
 @import url(fonts/clear-sans.css);
 
-/* ---- 1. 全局亮粉色背景与基础设置 ---- */
+/* ---- 全屏亮粉色背景，彻底消除顶部米黄色 ---- */
 html, body {
-  margin: 0;
-  padding: 0;
-  background: #FFC0CB !important; /* 超靓的亮粉色背景，铺满全屏 */
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #FFB6C1 !important; /* 甜美亮粉色 */
   color: #776e65;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-  font-size: 18px;
+  width: 100%;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-body {
-  margin: 20px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.container {
+  width: 380px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .heading:after {
@@ -26,75 +27,83 @@ body {
 }
 
 h1.title {
-  font-size: 60px;
+  font-size: 55px;
   font-weight: bold;
   margin: 0;
-  display: block;
   float: left;
   color: #d14962;
 }
 
-/* ---- 2. 分数框汉化 (SCORE -> 得分, BEST -> 最高分) ---- */
+/* ---- 中文分数框样式 ---- */
 .scores-container {
   float: right;
-  text-align: right;
+  display: flex;
+  gap: 8px;
+}
+
+.score-box, .best-box {
+  background: #ff758c;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-align: center;
+  color: white;
+  min-width: 55px;
+}
+
+.score-title, .best-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #ffe6eb;
+  margin-bottom: 2px;
 }
 
 .score-container, .best-container {
-  position: relative;
-  display: inline-block;
-  background: #ff8da1 !important;
-  padding: 15px 20px;
-  font-size: 22px;
-  height: 25px;
-  line-height: 25px;
+  font-size: 20px;
   font-weight: bold;
+  height: 24px;
+  line-height: 24px;
+}
+
+/* ---- 顶部副标题与新游戏按钮 ---- */
+.above-game {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.game-intro {
+  margin: 0;
+  font-size: 14px;
+  color: #9c3c4f;
+  font-weight: bold;
+}
+
+.restart-button {
+  background: #ff758c;
   border-radius: 6px;
+  padding: 8px 16px;
+  text-decoration: none;
   color: white;
-  margin-top: 4px;
-  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
 }
 
-.score-container:after {
-  content: "得分";
-  position: absolute;
-  width: 100%;
-  top: 3px;
-  left: 0;
-  font-size: 11px;
-  color: #ffeeee;
-}
-
-.best-container:after {
-  content: "最高分";
-  position: absolute;
-  width: 100%;
-  top: 3px;
-  left: 0;
-  font-size: 11px;
-  color: #ffeeee;
-}
-
-.container {
-  width: 420px;
-  margin: 0 auto;
-}
-
-/* ---- 3. 放大游戏棋盘区 ---- */
+/* ---- 游戏大棋盘美化 ---- */
 .game-container {
-  margin-top: 20px;
   position: relative;
-  padding: 15px;
-  background: #ff758c !important; /* 靓丽的粉红棋盘外框 */
+  padding: 12px;
+  background: #ff5277 !important; /* 更有质感的粉红棋盘框 */
   border-radius: 12px;
-  width: 420px;
-  height: 420px;
+  width: 380px;
+  height: 380px;
   box-sizing: border-box;
-  box-shadow: 0 10px 25px rgba(255, 117, 140, 0.4);
+  box-shadow: 0 8px 20px rgba(255, 82, 119, 0.3);
 }
 
 .grid-row {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 .grid-row:last-child {
   margin-bottom: 0;
@@ -105,14 +114,13 @@ h1.title {
   clear: both;
 }
 
-/* 放大格子尺寸 */
 .grid-cell {
-  width: 86.25px;
-  height: 86.25px;
-  margin-right: 15px;
+  width: 77px;
+  height: 77px;
+  margin-right: 12px;
   float: left;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.5) !important;
+  background: rgba(255, 255, 255, 0.4) !important;
 }
 .grid-cell:last-child {
   margin-right: 0;
@@ -124,33 +132,33 @@ h1.title {
 }
 
 .tile, .tile .tile-inner {
-  width: 86.25px;
-  height: 86.25px;
-  line-height: 86.25px;
+  width: 77px;
+  height: 77px;
+  line-height: 77px;
 }
 
-/* 动态计算 4x4 方块坐标位置（适配放大后的尺寸） */
+/* 4x4 棋盘精准坐标 */
 .tile.tile-position-1-1 { transform: translate(0px, 0px); }
-.tile.tile-position-1-2 { transform: translate(0px, 101.25px); }
-.tile.tile-position-1-3 { transform: translate(0px, 202.5px); }
-.tile.tile-position-1-4 { transform: translate(0px, 303.75px); }
+.tile.tile-position-1-2 { transform: translate(0px, 89px); }
+.tile.tile-position-1-3 { transform: translate(0px, 178px); }
+.tile.tile-position-1-4 { transform: translate(0px, 267px); }
 
-.tile.tile-position-2-1 { transform: translate(101.25px, 0px); }
-.tile.tile-position-2-2 { transform: translate(101.25px, 101.25px); }
-.tile.tile-position-2-3 { transform: translate(101.25px, 202.5px); }
-.tile.tile-position-2-4 { transform: translate(101.25px, 303.75px); }
+.tile.tile-position-2-1 { transform: translate(89px, 0px); }
+.tile.tile-position-2-2 { transform: translate(89px, 89px); }
+.tile.tile-position-2-3 { transform: translate(89px, 178px); }
+.tile.tile-position-2-4 { transform: translate(89px, 267px); }
 
-.tile.tile-position-3-1 { transform: translate(202.5px, 0px); }
-.tile.tile-position-3-2 { transform: translate(202.5px, 101.25px); }
-.tile.tile-position-3-3 { transform: translate(202.5px, 202.5px); }
-.tile.tile-position-3-4 { transform: translate(202.5px, 303.75px); }
+.tile.tile-position-3-1 { transform: translate(178px, 0px); }
+.tile.tile-position-3-2 { transform: translate(178px, 89px); }
+.tile.tile-position-3-3 { transform: translate(178px, 178px); }
+.tile.tile-position-3-4 { transform: translate(178px, 267px); }
 
-.tile.tile-position-4-1 { transform: translate(303.75px, 0px); }
-.tile.tile-position-4-2 { transform: translate(303.75px, 101.25px); }
-.tile.tile-position-4-3 { transform: translate(303.75px, 202.5px); }
-.tile.tile-position-4-4 { transform: translate(303.75px, 303.75px); }
+.tile.tile-position-4-1 { transform: translate(267px, 0px); }
+.tile.tile-position-4-2 { transform: translate(267px, 89px); }
+.tile.tile-position-4-3 { transform: translate(267px, 178px); }
+.tile.tile-position-4-4 { transform: translate(267px, 267px); }
 
-/* ---- 4. 彻底消除合并闪烁并映射你的 11 张自定义图片 ---- */
+/* ---- 消除闪烁并加载 11 张自定义图片 ---- */
 .tile .tile-inner {
   background-color: transparent !important;
   color: transparent !important;
@@ -168,65 +176,3 @@ h1.title {
 .tile.tile-512 .tile-inner { background-image: url("512.jpg"); background-size: cover; background-position: center; }
 .tile.tile-1024 .tile-inner { background-image: url("1024.jpg"); background-size: cover; background-position: center; }
 .tile.tile-2048 .tile-inner { background-image: url("2048.jpg"); background-size: cover; background-position: center; }
-
-/* ---- 5. 顶部按钮与说明排版 ---- */
-.above-game {
-  margin-top: 15px;
-  width: 420px;
-}
-
-.game-intro {
-  float: left;
-  line-height: 38px;
-  margin: 0;
-  font-size: 15px;
-  color: #b03a51;
-  font-weight: bold;
-}
-
-.restart-button {
-  display: inline-block;
-  background: #ff8da1 !important;
-  border-radius: 6px;
-  padding: 0 15px;
-  text-decoration: none;
-  color: white;
-  height: 38px;
-  line-height: 38px;
-  float: right;
-  font-weight: bold;
-}
-
-@media screen and (max-width: 520px) {
-  .container, .game-container, .above-game {
-    width: 320px;
-  }
-  .game-container {
-    height: 320px;
-    padding: 10px;
-  }
-  .grid-cell, .tile, .tile .tile-inner {
-    width: 62.5px;
-    height: 62.5px;
-    line-height: 62.5px;
-  }
-  .grid-row {
-    margin-bottom: 10px;
-  }
-  /* 手机端 4x4 坐标自适应 */
-  .tile.tile-position-1-2 { transform: translate(0px, 72.5px); }
-  .tile.tile-position-1-3 { transform: translate(0px, 145px); }
-  .tile.tile-position-1-4 { transform: translate(0px, 217.5px); }
-  .tile.tile-position-2-1 { transform: translate(72.5px, 0px); }
-  .tile.tile-position-2-2 { transform: translate(72.5px, 72.5px); }
-  .tile.tile-position-2-3 { transform: translate(72.5px, 145px); }
-  .tile.tile-position-2-4 { transform: translate(72.5px, 217.5px); }
-  .tile.tile-position-3-1 { transform: translate(145px, 0px); }
-  .tile.tile-position-3-2 { transform: translate(145px, 72.5px); }
-  .tile.tile-position-3-3 { transform: translate(145px, 145px); }
-  .tile.tile-position-3-4 { transform: translate(145px, 217.5px); }
-  .tile.tile-position-4-1 { transform: translate(217.5px, 0px); }
-  .tile.tile-position-4-2 { transform: translate(217.5px, 72.5px); }
-  .tile.tile-position-4-3 { transform: translate(217.5px, 145px); }
-  .tile.tile-position-4-4 { transform: translate(217.5px, 217.5px); }
-}
