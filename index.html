@@ -19,8 +19,14 @@
     <div class="heading">
       <h1 class="title">2048</h1>
       <div class="scores-container">
-        <div class="score-container">0</div>
-        <div class="best-container">0</div>
+        <div class="score-box">
+          <div class="score-title">得分</div>
+          <div class="score-container">0</div>
+        </div>
+        <div class="best-box">
+          <div class="best-title">最高分</div>
+          <div class="best-container">0</div>
+        </div>
       </div>
     </div>
 
@@ -81,27 +87,27 @@
   <script src="js/local_storage_manager.js"></script>
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
+
+  <!-- 浏览器自带合成音效脚本 -->
+  <script>
+    const playSound = (freq, type) => {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type || 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.1);
+      } catch(e) {}
+    };
+
+    document.addEventListener('keydown', () => playSound(400, 'sine'));
+    document.addEventListener('touchstart', () => playSound(400, 'sine'));
+  </script>
 </body>
 </html>
-<script>
-  // 浏览器自带音频合成音效（无需外部音频文件）
-  const playSound = (freq, type) => {
-    try {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = type || 'sine';
-      osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0.1, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.1);
-    } catch(e) {}
-  };
-
-  // 监听键盘或滑动触发音效
-  document.addEventListener('keydown', () => playSound(400, 'sine'));
-  document.addEventListener('touchstart', () => playSound(400, 'sine'));
-</script>
