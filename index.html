@@ -12,7 +12,7 @@
 
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 </head>
 <body>
   <div class="container">
@@ -39,12 +39,12 @@
 
     <!-- 游戏主体 -->
     <div class="game-container">
-      
-      <!-- 🌟 终极隐藏：直接把弹窗按死在 HTML 里，绝对不显示 -->
+
+      <!-- 隐藏游戏结束弹窗 -->
       <div class="game-message" style="display: none !important;">
         <p></p>
         <div class="lower">
-	        <a class="keep-playing-button">继续游戏</a>
+          <a class="keep-playing-button">继续游戏</a>
           <a class="retry-button">再试一次</a>
         </div>
       </div>
@@ -82,35 +82,44 @@
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
 
-  <!-- 升级版超大声可爱音效 -->
+  <!-- 手机端触摸与按键音效 -->
   <script>
     let audioCtx = null;
+
     const playCuteSound = () => {
       try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
+
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(800, audioCtx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
-        
-        // 音量拉满到 0.8，绝对听得见
+
         gain.gain.setValueAtTime(0.8, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-        
+
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start();
         osc.stop(audioCtx.currentTime + 0.1);
-      } catch(e) {}
+      } catch (e) {}
     };
 
-    // 直接监听整个屏幕，不管你点哪、滑哪，都有声音
-    document.body.addEventListener('touchstart', playCuteSound, {passive: true});
+    // 触摸滑动音效
+    document.body.addEventListener('touchstart', playCuteSound, { passive: true });
+
+    // 键盘方向键与 WASD 音效
     document.body.addEventListener('keydown', (e) => {
-      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(e.key.toLowerCase())) {
+      const key = e.key.toLowerCase();
+      if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'w', 'a', 's', 'd'].includes(key)) {
         playCuteSound();
       }
     });
