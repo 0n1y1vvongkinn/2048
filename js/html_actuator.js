@@ -7,6 +7,26 @@ function HTMLActuator() {
   this.score = 0;
 }
 
+// 音效函数
+HTMLActuator.prototype.playMoveSound = function () {
+  try {
+    const s = document.getElementById("moveSound");
+    if (s) {
+      s.currentTime = 0;
+      s.play();
+    }
+  }catch(e){}
+};
+HTMLActuator.prototype.playMergeSound = function () {
+  try {
+    const s = document.getElementById("mergeSound");
+    if (s) {
+      s.currentTime = 0;
+      s.play();
+    }
+  }catch(e){}
+};
+
 HTMLActuator.prototype.actuate = function (grid, metadata) {
   var self = this;
 
@@ -23,6 +43,15 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
 
     self.updateScore(metadata.score);
     self.updateBestScore(metadata.bestScore);
+
+    // 有移动就触发移动音效
+    if (metadata.moved) {
+      self.playMoveSound();
+    }
+    // 有合并触发合并音效
+    if (metadata.merged) {
+      self.playMergeSound();
+    }
 
     if (metadata.terminated) {
       if (metadata.over) {
