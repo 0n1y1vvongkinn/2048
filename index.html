@@ -1,21 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <title>2048 - 专属定制版</title>
-
-  <link href="style/main.css" rel="stylesheet" type="text/css">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
-</head>
 <body>
   <div class="container">
+    <!-- 头部 -->
     <div class="heading">
       <h1 class="title">2048</h1>
       <div class="scores-container">
@@ -30,53 +15,48 @@
       </div>
     </div>
 
+    <!-- 按钮栏 -->
     <div class="above-game">
       <p class="game-intro">合并相同图片，解锁最终大图！</p>
       <a class="restart-button">新游戏</a>
     </div>
 
+    <!-- 游戏主体 -->
     <div class="game-container">
+      
+      <!-- 游戏结束/胜利弹窗 -->
       <div class="game-message">
         <p></p>
         <div class="lower">
-	        <a class="keep-playing-button">继续游戏</a>
+          <a class="keep-playing-button">继续游戏</a>
           <a class="retry-button">再试一次</a>
         </div>
       </div>
 
+      <!-- 背景网格 -->
       <div class="grid-container">
         <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
+          <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
         </div>
         <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
+          <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
         </div>
         <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
+          <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
         </div>
         <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
+          <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
         </div>
       </div>
 
+      <!-- 动态方块容器 (由 JS 生成内容) -->
       <div class="tile-container">
-
       </div>
+      
     </div>
   </div>
 
+  <!-- 你的 JS 脚本 -->
   <script src="js/bind_polyfill.js"></script>
   <script src="js/classlist_polyfill.js"></script>
   <script src="js/animframe_polyfill.js"></script>
@@ -88,7 +68,7 @@
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
 
-  <!-- 浏览器自带合成音效脚本 -->
+  <!-- 音效脚本 -->
   <script>
     const playSound = (freq, type) => {
       try {
@@ -105,9 +85,7 @@
         osc.stop(ctx.currentTime + 0.1);
       } catch(e) {}
     };
-
     document.addEventListener('keydown', () => playSound(400, 'sine'));
     document.addEventListener('touchstart', () => playSound(400, 'sine'));
   </script>
 </body>
-</html>
